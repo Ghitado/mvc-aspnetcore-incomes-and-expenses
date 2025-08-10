@@ -35,10 +35,7 @@ public class TransactionService : ITransactionService
 
     public async Task<Transaction?> GetById(int id)
     {
-        var transaction = await _context.Transactions
-            .FindAsync(id);
-
-        return transaction;
+        return await _context.Transactions.FindAsync(id);
     }
 
     public bool TransactionExists(int id)
