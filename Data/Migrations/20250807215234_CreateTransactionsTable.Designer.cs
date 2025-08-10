@@ -12,7 +12,7 @@ using mvc_aspnetcore_incomes_and_expenses.Data;
 namespace mvc_aspnetcore_incomes_and_expenses.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250806202634_CreateTransactionsTable")]
+    [Migration("20250807215234_CreateTransactionsTable")]
     partial class CreateTransactionsTable
     {
         /// <inheritdoc />

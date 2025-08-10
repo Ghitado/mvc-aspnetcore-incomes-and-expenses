@@ -1,54 +1,60 @@
 ﻿@model mvc_aspnetcore_incomes_and_expenses.Models.Transaction
 
 @{
-    var statusValues = Enum.GetValues<mvc_aspnetcore_incomes_and_expenses.Models.Enums.TransactionType>();
-
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Transação";
 }
 
-<h1>Create</h1>
+<h1 class="mb-4 text-center">Criar Transação</h1>
 
-<h4>Transaction</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Create" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Amount" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text">R$</span>
+                    <input asp-for="Amount" class="form-control" step="0.01" min="0" />
+                </div>
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+
+            <div class="mb-3">
+                <label asp-for="Date" class="form-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
+
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label"></label>
                 <select asp-for="Type" class="form-select">
-                    <option selected>Escolha...</option>
-                    <option value="0">Renda</option>
+                    <option value="">-- Selecione --</option>
+                    <option value="0">Receita</option>
                     <option value="1">Despesa</option>
                 </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label"></label>
+                <input asp-for="Description" class="form-control" placeholder="Descrição da transação" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary me-2">Salvar</button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar para lista
+                </a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

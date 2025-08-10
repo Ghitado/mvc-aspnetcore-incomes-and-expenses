@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mvc_aspnetcore_incomes_and_expenses.Data;
 using mvc_aspnetcore_incomes_and_expenses.Data.Services;
@@ -6,6 +7,7 @@ using mvc_aspnetcore_incomes_and_expenses.Models;
 
 namespace mvc_aspnetcore_incomes_and_expenses.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,13 +21,11 @@ namespace mvc_aspnetcore_incomes_and_expenses.Controllers
             _transactionService = transactionService;
         }
 
-        // GET: Transaction
         public async Task<IActionResult> Index()
         {
             return View(await _transactionService.GetAll());
         }
 
-        // GET: Transaction/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id is null)
@@ -39,18 +39,14 @@ namespace mvc_aspnetcore_incomes_and_expenses.Controllers
             return View(transaction);
         }
 
-        // GET: Transaction/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Transaction/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,Amount,Date,Category,IsIncome")] Transaction transaction)
+        public async Task<IActionResult> Create(Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +56,6 @@ namespace mvc_aspnetcore_incomes_and_expenses.Controllers
             return View(transaction);
         }
 
-        // GET: Transaction/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id is null)
@@ -74,9 +69,6 @@ namespace mvc_aspnetcore_incomes_and_expenses.Controllers
             return View(transaction);
         }
 
-        // POST: Transaction/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Description,Amount,Date,Category,IsIncome")] Transaction transaction)
@@ -102,7 +94,6 @@ namespace mvc_aspnetcore_incomes_and_expenses.Controllers
             return View(transaction);
         }
 
-        // GET: Transaction/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id is null)
@@ -116,7 +107,6 @@ namespace mvc_aspnetcore_incomes_and_expenses.Controllers
             return View(transaction);
         }
 
-        // POST: Transaction/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

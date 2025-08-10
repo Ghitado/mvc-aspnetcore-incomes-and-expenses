@@ -1,25 +1,28 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using mvc_aspnetcore_incomes_and_expenses.Models;
+using System.Diagnostics;
 
 namespace mvc_aspnetcore_incomes_and_expenses.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger, 
+            SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            if (_signInManager.IsSignedIn(User))
+                return RedirectToAction("Index", "Transaction");
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 
