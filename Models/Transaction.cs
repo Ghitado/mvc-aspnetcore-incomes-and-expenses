@@ -18,8 +18,7 @@ public class Transaction
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "O valor é obrigatório.")]
-    [DataType(DataType.Currency)]
-    [Precision(18,2)]
+    [Precision(18, 2)]
     [Range(0.01, double.MaxValue, ErrorMessage = "O valor deve ser maior que zero.")]
     [DisplayName("Valor")]
     public decimal Amount { get; set; }
