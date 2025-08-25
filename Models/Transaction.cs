@@ -27,7 +27,4 @@ public class Transaction
     [DataType(DataType.Date)]
     [DisplayName("Data")]
     public DateTime Date { get; set; }
-    // Navigation properties can be added here if needed
-    // public virtual User User { get; set; }
-    // public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 }
