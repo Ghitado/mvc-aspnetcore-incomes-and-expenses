@@ -26,7 +26,6 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    dbContext.Database.Migrate(); 
     DbSeeder.Seed(dbContext, userManager); 
 }
 
